@@ -11,7 +11,7 @@ linecmb <(ssh server1 -C "tail -f /path/to/file") <(ssh server2 -C "tail -f /pat
 
 ## Description & Example
 
-if you want to combine these 4 simple streams.
+if you want to combine these 3 simple streams.
 
 ```
 1 (sleep 1;echo SlowSlow)
