@@ -16,7 +16,7 @@ if you want to combine these 3 simple streams.
 ```
 1 (sleep 1;echo SlowSlow)
 2 (sleep 0;for i in $(seq 1 25);do printf aaa;echo;done) 
-3 (sleep 0;for i in $(seq 1 50);do printf baaa;echo;done)
+3 (sleep 0;for i in $(seq 1 25);do printf bbb;echo;done)
 ```
 
 Expected output 
@@ -39,7 +39,7 @@ handle this with simple bash like this.
 ```
 ((sleep 1;echo SlowSlow) & \
  (sleep 0;for i in $(seq 1 25);do printf aaa;echo;done) & \
- (sleep 0;for i in $(seq 1 25);do printf baaa;echo;done))
+ (sleep 0;for i in $(seq 1 25);do printf bbb;echo;done))
 ```
 
 A line `a` and `b` and `\n` mixed is printed.
@@ -65,7 +65,7 @@ if you use `cat`.
 ```
 cat <(sleep 1;echo SlowSlow) \
  <(sleep 0;for i in $(seq 1 25);do printf aaa;echo;done) \
- <(sleep 0;for i in $(seq 1 25);do printf bbbb;echo;done)  
+ <(sleep 0;for i in $(seq 1 25);do printf bbb/;echo;done)  
 ```
 
 ```sh
