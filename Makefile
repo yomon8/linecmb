@@ -1,4 +1,4 @@
-BIN      := fdlinemerge
+BIN      := linecmb
 OSARCH   := "darwin/amd64 linux/amd64"
 
 all: build
