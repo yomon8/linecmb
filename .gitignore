@@ -1,6 +1,7 @@
 *
 !*/
 !*.*
+!Makefile
 *.swp
 pkg/
 
