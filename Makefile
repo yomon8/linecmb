@@ -1,5 +1,6 @@
 BIN      := linecmb
 OSARCH   := "darwin/amd64 linux/amd64"
+VERSION  := $(shell git describe --tags)
 
 all: build
 
@@ -20,10 +21,11 @@ crossbuild:
 		gox \
 		-osarch $(OSARCH) \
 		-output "./pkg/{{.OS}}_{{.Arch}}/{{.Dir}}" \
+		-ldflags "-X main.version=$(VERSION)" \
 		./cmd/...
 
 build:
-	go build -o $(BIN) ./cmd/...
+	go build -o $(BIN) -ldflags "-X main.version=$(VERSION)" ./cmd/...
 
 linuxbuild:
 	GOOS=linux GOARCH=amd64 make build

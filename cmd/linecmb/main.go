@@ -2,6 +2,8 @@ package main
 
 import (
 	"bufio"
+	"flag"
+	"fmt"
 	"os"
 	"sync"
 
@@ -17,6 +19,18 @@ import (
 	"github.com/yomon8/linecmb/readworker"
 )
 
+var version = "0"
+
+func flagParse() {
+	versionFlag := false
+	flag.BoolVar(&versionFlag, "v", false, "version")
+	flag.Parse()
+	if versionFlag {
+		fmt.Println("version:", version)
+		os.Exit(-1)
+	}
+}
+
 func main() {
 	//------------------------------
 	//---- Memory Profiler
@@ -24,6 +38,8 @@ func main() {
 	//go func() {
 	//	log.Println(http.ListenAndServe("localhost:6060", nil))
 	//}()
+	flagParse()
+
 	wg := new(sync.WaitGroup)
 	go printer.Get().Run()
 	fds := fd.GetFdList()
