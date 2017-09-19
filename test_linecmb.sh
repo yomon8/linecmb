@@ -65,20 +65,20 @@ echo OK!
 echo "Non-ASCII & Random FD Num test"
 SIZE=$((1024*8))
 perl -se '
-print "0"x$shell_var, "\n";
 print "あ"x$shell_var, "\n";
+print "0"x$shell_var, "\n";
 print "10"x$shell_var, "\n";
 ' -- -shell_var=${SIZE} > test_sample.out
 for((i=0; i<20; ++i)) {
   printf "# iteration $i of 20";
 
   time ${executefile}  6 9 12 \
-    6<  <( sleep 0; perl -se 'print "0"x$shell_var, "\n"' -- -shell_var=${SIZE}) \
     9<  <( sleep 0; perl -se 'print "あ"x$shell_var, "\n"' -- -shell_var=${SIZE}) \
+    6<  <( sleep 0; perl -se 'print "0"x$shell_var, "\n"' -- -shell_var=${SIZE}) \
     12< <( sleep 0; perl -se 'print "10"x$shell_var, "\n"' -- -shell_var=${SIZE}) \
     > test.out;
 
-  sort -n test.out | cmp test_sample.out -
+  cmp <(sort -n test_sample.out) <(sort -n test.out)
 }
 echo OK!
 
