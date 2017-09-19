@@ -26,11 +26,16 @@ func NewReadWorker(fd int) *ReadWorker {
 
 // Run read data from file descriptor and send it to printer object
 func (rw *ReadWorker) Run(reader *bufio.Reader) {
+	isLastBufferSeparated := false
+	lastWriteBytes := 0
 	for {
 		buf := make([]byte, readBufferSize)
 		n, err := reader.Read(buf)
 		if err == io.EOF {
 			if n == 0 {
+				if !isLastBufferSeparated && lastWriteBytes != 0 {
+					rw.sendSpool(1, []byte{separator})
+				}
 				break
 			} else {
 				rw.sendSpool(n, buf)
@@ -39,6 +44,8 @@ func (rw *ReadWorker) Run(reader *bufio.Reader) {
 			panic(err)
 		}
 		if n != 0 {
+			isLastBufferSeparated = buf[n-1] == separator
+			lastWriteBytes = n
 			rw.sendSpool(n, buf)
 		}
 	}
