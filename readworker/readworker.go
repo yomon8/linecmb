@@ -3,7 +3,6 @@ package readworker
 import (
 	"bufio"
 	"io"
-	"log"
 
 	"github.com/yomon8/linecmb/printer"
 )
@@ -37,7 +36,6 @@ func (rw *ReadWorker) Run(reader *bufio.Reader) {
 				rw.sendSpool(n, buf)
 			}
 		} else if err != nil {
-			log.Printf("%#v\n", err)
 			panic(err)
 		}
 		if n != 0 {
