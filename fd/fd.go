@@ -37,7 +37,6 @@ func GetFdList() *FdList {
 		fd.dir = "/proc/self/fd"
 	case "darwin":
 		fd.dir = "/dev/fd"
-		fd.excludedfds[3] = 4
 	default:
 		log.Fatalf("GOOS %s not supported.", runtime.GOOS)
 	}
