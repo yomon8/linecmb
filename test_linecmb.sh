@@ -94,7 +94,7 @@ cat <( sleep 0; perl -e 'print "2\n" foreach 1..(35*1024)' ) >> test_sample.out
 for((i=1; i<=2; ++i)) {
   echo "    iteration $i of 2";
 
-  (ulimit -v 100000;time ${executefile}  6 5 7) \
+  (ulimit -v 10000000;time ${executefile}  6 5 7) \
     5< <( sleep 0; perl -e 'print "0\n" foreach 1..(35*1024)' ) \
     6< <( sleep 0; perl -e 'print "1"x(1024*1024) foreach 1..31'; echo ) \
     7< <( sleep 0; perl -e 'print "2\n" foreach 1..(35*1024)' ) \
