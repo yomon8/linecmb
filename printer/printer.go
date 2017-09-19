@@ -61,10 +61,6 @@ func (p *Printer) write(data []byte) {
 	if err != nil {
 		panic(err)
 	}
-	err = p.writer.Flush()
-	if err != nil {
-		panic(err)
-	}
 }
 
 func (p *Printer) putBuffer(id int, data []byte) {
@@ -119,6 +115,10 @@ func (p *Printer) Run() {
 				p.buffer[spo.Id] = newSpoolData()
 				remain := p.printLine(spo.Data)
 				p.putBuffer(spo.Id, remain)
+			}
+			err := p.writer.Flush()
+			if err != nil {
+				panic(err)
 			}
 		}
 		if !more {
