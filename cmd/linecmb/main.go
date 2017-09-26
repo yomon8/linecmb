@@ -19,8 +19,6 @@ import (
 	"github.com/yomon8/linecmb/readworker"
 )
 
-var version = "0"
-
 func flagParse() {
 	versionFlag := false
 	flag.BoolVar(&versionFlag, "v", false, "version")

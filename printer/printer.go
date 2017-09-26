@@ -29,16 +29,17 @@ type Printer struct {
 }
 
 func newPrinter() *Printer {
-	p := new(Printer)
-	p.Queue = make(chan *Spool, queueSize)
-	p.buffer = make(map[int]*spoolData, maxConcurrency)
-	p.writer = bufio.NewWriterSize(os.Stdout, writeBufferSize)
+	p := Printer{
+		Queue:  make(chan *Spool, queueSize),
+		buffer: make(map[int]*spoolData, maxConcurrency),
+		writer: bufio.NewWriterSize(os.Stdout, writeBufferSize),
+		quit:   false,
+		wg:     new(sync.WaitGroup),
+	}
 	for i := 0; i < maxConcurrency; i++ {
 		p.buffer[i] = newSpoolData()
 	}
-	p.quit = false
-	p.wg = new(sync.WaitGroup)
-	return p
+	return &p
 }
 
 // Get Printer singleton object
@@ -136,10 +137,11 @@ type spoolData struct {
 }
 
 func newSpoolData() *spoolData {
-	s := new(spoolData)
-	s.data = make([][]byte, spoolBufferSize)
-	s.pos = 0
-	return s
+	s := spoolData{
+		data: make([][]byte, spoolBufferSize),
+		pos:  0,
+	}
+	return &s
 }
 
 type Spool struct {

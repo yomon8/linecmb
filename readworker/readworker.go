@@ -19,9 +19,10 @@ type ReadWorker struct {
 
 // NewReadWorker return ReadWorker object
 func NewReadWorker(fd int) *ReadWorker {
-	rw := new(ReadWorker)
-	rw.fd = fd
-	return rw
+	rw := ReadWorker{
+		fd: fd,
+	}
+	return &rw
 }
 
 // Run read data from file descriptor and send it to printer object
