@@ -1,4 +1,7 @@
-# linecmb
+linecmb
+====
+[![Latest Version](http://img.shields.io/github/release/yomon8/linecmb.svg?style=flat-square)](https://github.com/yomon8/linecmb/releases)
+
 Read multiple input streams and Write them into stdout 
 
 
